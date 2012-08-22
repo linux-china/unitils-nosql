@@ -32,10 +32,7 @@ public class RedisModule implements Module {
      */
     public void init(Properties configuration) {
         String host = configuration.getProperty("redis.host");
-        String port = configuration.getProperty("redis.port");
-        if (port == null) {
-            port = "6379";
-        }
+        String port = configuration.getProperty("redis.port","6379");
         jedis = new Jedis(host, Integer.valueOf(port));
     }
 
