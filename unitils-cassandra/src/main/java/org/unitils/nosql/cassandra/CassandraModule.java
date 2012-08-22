@@ -5,8 +5,6 @@ import com.netflix.astyanax.ColumnListMutation;
 import com.netflix.astyanax.Keyspace;
 import com.netflix.astyanax.MutationBatch;
 import com.netflix.astyanax.connectionpool.NodeDiscoveryType;
-import com.netflix.astyanax.connectionpool.OperationResult;
-import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
 import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
@@ -23,7 +21,9 @@ import org.unitils.nosql.cassandra.annotation.CassandraDataSet;
 import org.unitils.util.AnnotationUtils;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Unitils Cassandra module
@@ -160,7 +160,7 @@ public class CassandraModule implements Module {
                                 }
                             }
                         }
-                        OperationResult<Void> result = m.execute();
+                        m.execute();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
