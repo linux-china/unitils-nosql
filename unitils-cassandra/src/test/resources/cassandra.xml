@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <keyspace>
-    <fruits id="1" name="苹果"/>
+    <fruits id="1" name="苹果" price="double(9.88)"/>
 </keyspace>
