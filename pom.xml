@@ -37,6 +37,11 @@
     </scm>
     <dependencies>
         <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.unitils</groupId>
             <artifactId>unitils-core</artifactId>
             <version>${unitils.version}</version>
