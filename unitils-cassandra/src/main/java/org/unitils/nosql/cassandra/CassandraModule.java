@@ -144,6 +144,9 @@ public class CassandraModule implements Module {
                                     } else if (value.startsWith("bigint(")) {
                                         value = value.replace("bigint(", "");
                                         mutation = mutation.putColumn(name, Long.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else if (value.startsWith("counter(")) {
+                                        value = value.replace("counter(", "");
+                                        mutation = mutation.putColumn(name, Long.valueOf(value.substring(0, value.length() - 1)), null);
                                     } else if (value.startsWith("timestamp(")) {
                                         value = value.replace("timestamp(", "");
                                         mutation = mutation.putColumn(name, new Date(Long.valueOf(value.substring(0, value.length() - 1))), null);
