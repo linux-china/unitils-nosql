@@ -132,17 +132,34 @@ public class CassandraModule implements Module {
                                 String name = attribute.getName();
                                 String value = attribute.getValue();
                                 if (!name.equals("id") && value != null && !value.isEmpty()) {
-                                    mutation = mutation.putColumn(name, value, null);
+                                    if (value.startsWith("double(")) {
+                                        value = value.replace("double(", "");
+                                        mutation = mutation.putColumn(name, Double.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else if (value.startsWith("float(")) {
+                                        value = value.replace("float(", "");
+                                        mutation = mutation.putColumn(name, Float.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else if (value.startsWith("int(")) {
+                                        value = value.replace("int(", "");
+                                        mutation = mutation.putColumn(name, Integer.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else if (value.startsWith("bigint(")) {
+                                        value = value.replace("bigint(", "");
+                                        mutation = mutation.putColumn(name, Long.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else if (value.startsWith("timestamp(")) {
+                                        value = value.replace("timestamp(", "");
+                                        mutation = mutation.putColumn(name, new Date(Long.valueOf(value.substring(0, value.length() - 1))), null);
+                                    } else if (value.startsWith("boolean(")) {
+                                        value = value.replace("boolean(", "");
+                                        mutation = mutation.putColumn(name, Boolean.valueOf(value.substring(0, value.length() - 1)), null);
+                                    } else {
+                                        mutation = mutation.putColumn(name, value, null);
+                                    }
+
                                 }
                             }
                         }
-                        try {
-                            OperationResult<Void> result = m.execute();
-                        } catch (ConnectionException e) {
-                            e.printStackTrace();
-                        }
-                    } catch (Exception ignore) {
-
+                        OperationResult<Void> result = m.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
